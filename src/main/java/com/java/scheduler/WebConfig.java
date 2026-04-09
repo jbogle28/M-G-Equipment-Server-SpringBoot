@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000") // This connects React server
+                .allowedOrigins("https://m-g-equipment-client-mtkhphswj-jordan-bogles-projects.vercel.app") // This connects React server
                 .allowedMethods("GET", "POST", "PUT", "DELETE");
     }
 }

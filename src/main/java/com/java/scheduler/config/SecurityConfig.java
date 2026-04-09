@@ -71,29 +71,26 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Settings to allow our React frontend (Vite) to communicate with this API
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        
-        // Trust the URL where the React application is running
-        configuration.setAllowedOrigins(List.of("http://localhost:5173")); 
-        
-        // Allow standard HTTP methods
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        
-        // Allow specific headers needed for JWT authentication and JSON data
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
-        
-        // Allow the browser to send cookies or auth headers if needed
-        configuration.setAllowCredentials(true);
-        
-        // Ensure the frontend can see the 'Authorization' header in the server response
-        configuration.setExposedHeaders(List.of("Authorization"));
-        
-        // Apply these CORS settings to every path in the application
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    // Settings to allow netlify & React frontend (Vite) to communicate with this API
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration configuration = new CorsConfiguration();
+	    
+	    // Add all your frontend URLs here
+	    configuration.setAllowedOrigins(List.of(
+	        "http://localhost:5173", 
+	        "https://m-g-equipment-client.vercel.app",
+	        "https://m-g-equipment-client-git-main-jordan-bogles-projects.vercel.app",
+	        "https://m-g-equipment-client-o7kpoqfya-jordan-bogles-projects.vercel.app"
+	    )); 
+	    
+	    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+	    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Cache-Control"));
+	    configuration.setAllowCredentials(true);
+	    configuration.setExposedHeaders(List.of("Authorization"));
+	    
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
+	}
 }
